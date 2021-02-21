@@ -25,6 +25,11 @@
       <version>3.1.3</version>
     </dependency>
     <dependency>
+      <groupId>sybit-education</groupId>
+      <artifactId>airtable.java</artifactId>
+      <version>0.2.2</version>
+    </dependency>
+    <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
       <version>4.5.13</version>
