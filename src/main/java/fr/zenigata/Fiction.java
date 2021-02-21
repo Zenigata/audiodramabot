@@ -1,12 +1,34 @@
 package fr.zenigata;
 
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
+import com.sybit.airtable.vo.Attachment;
 
 public class Fiction {
+  @SerializedName("Record ID")
   private String id;
 
   @SerializedName("Nom")
   private String name;
+
+  @SerializedName("Statut")
+  private String status;
+
+  @SerializedName("Synopsis")
+  private String synopsis;
+
+  @SerializedName("Site")
+  private String site;
+
+  @SerializedName("Genre")
+  private String[] genres;
+
+  @SerializedName("Durée")
+  private Float duration;
+
+  @SerializedName("Pochette")
+  private List<Attachment> covers;
 
   public String getId() {
     return id;
@@ -22,6 +44,54 @@ public class Fiction {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public String getSynopsis() {
+    return synopsis;
+  }
+
+  public void setSynopsis(String synopsis) {
+    this.synopsis = synopsis;
+  }
+
+  public String getSite() {
+    return site;
+  }
+
+  public void setSite(String site) {
+    this.site = site;
+  }
+
+  public String[] getGenres() {
+    return genres;
+  }
+
+  public void setGenres(String[] genres) {
+    this.genres = genres;
+  }
+
+  public Float getDuration() {
+    return duration;
+  }
+
+  public void setDuration(Float duration) {
+    this.duration = duration;
+  }
+
+  public List<Attachment> getCovers() {
+    return covers;
+  }
+
+  public void setCovers(List<Attachment> covers) {
+    this.covers = covers;
+  }
+
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
   }
 
 }
