@@ -84,7 +84,7 @@ public class Bot extends ReactiveEventAdapter {
 
   private Publisher<?> parseAndExecute(Message message) throws HttpResponseException, AirtableException {
     final String commandline = message.getContent().substring(PREFIX.length()).trim();
-    final String[] commandParts = commandline.trim().split("[\s\r\n]+", 2);
+    final String[] commandParts = commandline.trim().split("[\\s\\r\\n]+", 2);
     final String commandName = commandParts[0].toLowerCase();
     String parameter = "";
 
