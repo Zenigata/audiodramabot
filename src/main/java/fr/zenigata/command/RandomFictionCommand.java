@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import discord4j.core.object.entity.Message;
 import fr.zenigata.Bot;
 import fr.zenigata.Fiction;
+import fr.zenigata.QueryUtils;
 import fr.zenigata.SpecUtils;
 
 public class RandomFictionCommand implements Command {
@@ -28,9 +29,7 @@ public class RandomFictionCommand implements Command {
   @Override
   public Publisher<?> execute(Message message, String parameter, Base base)
       throws HttpResponseException, AirtableException {
-    String[] fields = { "Record ID" };
-    List<Fiction> allFictions = base.table(Bot.TABLE_FICTION, Fiction.class).select(fields);
-    logger.debug("Il y a {} fictions", allFictions.size());
+    List<Fiction> allFictions = QueryUtils.retrieveAllFictions(base);
 
     Random random = new Random();
     Fiction fiction = (Fiction) base.table(Bot.TABLE_FICTION, Fiction.class)

@@ -13,11 +13,6 @@ public class HelpCommand implements Command {
   }
 
   @Override
-  public CommandInfo getCommandInfo() {
-    return new CommandInfo("help", "Affiche l'aide", "!help (command) (sub-command)");
-  }
-
-  @Override
   public Publisher<?> execute(Message message, String parameter, Base base) {
     return null;
   }

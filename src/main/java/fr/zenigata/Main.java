@@ -3,6 +3,7 @@ package fr.zenigata;
 import com.sybit.airtable.exception.AirtableException;
 
 import fr.zenigata.command.RandomFictionCommand;
+import fr.zenigata.command.AboutCommand;
 import fr.zenigata.command.FindFictionCommand;
 import fr.zenigata.command.PingCommand;
 
@@ -13,7 +14,7 @@ public class Main {
         }
 
         Bot bot = new Bot(args[0]);
-        bot.addCommands(new PingCommand(), new RandomFictionCommand(), new FindFictionCommand());
+        bot.addCommands(new PingCommand(), new RandomFictionCommand(), new FindFictionCommand(), new AboutCommand());
         try {
             bot.login("appR1sA7OvhBJbdgC");
         } catch (AirtableException e) {

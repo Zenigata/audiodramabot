@@ -15,11 +15,6 @@ public class PingCommand implements Command {
   }
 
   @Override
-  public CommandInfo getCommandInfo() {
-    return new CommandInfo("ping", "Renvoie Pong!", "!ping");
-  }
-
-  @Override
   public Publisher<?> execute(Message message, String parameter, Base base)
       throws HttpResponseException, AirtableException {
     return message.getChannel().flatMap(c -> c.createMessage("Pong!"));
