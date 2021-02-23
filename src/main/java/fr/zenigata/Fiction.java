@@ -22,7 +22,7 @@ public class Fiction {
   private String site;
 
   @SerializedName("Genre")
-  private String[] genres;
+  private List<String> genres;
 
   @SerializedName("Durée")
   private Float duration;
@@ -62,14 +62,6 @@ public class Fiction {
     this.site = site;
   }
 
-  public String[] getGenres() {
-    return genres;
-  }
-
-  public void setGenres(String[] genres) {
-    this.genres = genres;
-  }
-
   public Float getDuration() {
     return duration;
   }
@@ -92,6 +84,14 @@ public class Fiction {
 
   public void setStatus(String status) {
     this.status = status;
+  }
+
+  public List<String> getGenres() {
+    return genres;
+  }
+
+  public void setGenres(List<String> genres) {
+    this.genres = genres;
   }
 
 }

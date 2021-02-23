@@ -1,5 +1,6 @@
 package fr.zenigata;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 import discord4j.core.spec.EmbedCreateSpec;
@@ -20,11 +21,14 @@ public class SpecUtils {
   }
 
   public static String displayDuration(Float seconds) {
+    if (seconds == null) {
+      return "TBD";
+    }
     return String.format("%.0fh %.0fm", seconds / 3600, (seconds % 3600) / 60);
   }
 
-  public static String displayGenres(String[] genres) {
-    if (genres == null || genres.length == 0) {
+  public static String displayGenres(List<String> genres) {
+    if (genres == null || genres.size() == 0) {
       return "";
     }
     return "- " + String.join("\n - ", genres);
