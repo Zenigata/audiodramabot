@@ -24,14 +24,13 @@ public class AboutCommand implements Command {
     List<Fiction> allFictions = QueryUtils.retrieveAllFictions(base);
 
     return message.getChannel().flatMap(c -> c.createEmbed(s -> s.setTitle("Audio Drama Bot version 0.2")
-        .setAuthor("zenigata", "http://zenigata.fr", "")
         .setThumbnail("https://raw.githubusercontent.com/Zenigata/audiodramabot/main/img/logo.jpg")
-        .setFooter("Fait avec :heart: pour la communauté",
+        .setFooter("Fait avec amour pour la communauté !",
             "https://raw.githubusercontent.com/Zenigata/audiodramabot/main/img/logo.jpg")
         .addField(":coffee: Open source",
             "Contribuez à ce bot sous license GPL-3.0 sur [GitHub](https://github.com/Zenigata/audiodramabot).", true)
-        .addField(allFictions.size() + " fictions répertoriées",
-            "La base de données est maintenue sur Airtable et historisée sur [GitHub](https://github.com/Zenigata/awesome-audio-drama). Manifestez-vous pour contribuer !",
+        .addField(":headphones: " + allFictions.size() + " fictions répertoriées",
+            "Maintenu via Airtable et historisé sur [GitHub](https://github.com/Zenigata/awesome-audio-drama).",
             true)));
   }
 }
