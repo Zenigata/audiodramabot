@@ -84,7 +84,7 @@ public class Bot extends ReactiveEventAdapter {
       e.printStackTrace();
       return Mono.empty();
     }
-    return Flux.concat(message.addReaction(ReactionEmoji.unicode("\u2705")), possibleResponse);
+    return possibleResponse;
   }
 
   private Publisher<?> parseAndExecute(Message message) throws HttpResponseException, AirtableException {
@@ -99,8 +99,7 @@ public class Bot extends ReactiveEventAdapter {
 
     Command command = commands.get(commandName);
     if (command == null) {
-      return SpecUtils.displayError(message,
-          "Commande **" + commandName + "** inconnue. Tapez **" + PREFIX + "help**.");
+      return Mono.empty();
     }
     return command.execute(message, parameter, base);
   }
