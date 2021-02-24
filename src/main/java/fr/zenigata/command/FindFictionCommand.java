@@ -32,7 +32,8 @@ public class FindFictionCommand implements Command {
     List<Fiction> found = base.table(Bot.TABLE_FICTION, Fiction.class).select(query);
 
     if (found.size() == 0) {
-      return SpecUtils.displayError(message, "Aucune fiction ne contient *" + parameter + "* dans son nom.");
+      return SpecUtils.displayError(message, "Aucune fiction ne contient *" + parameter
+          + "* dans son nom. [Ajoutez-la](https://airtable.com/shrxmDTMyZz7BQMKG) vous-même !");
     }
     Fiction fiction = found.get(0);
 

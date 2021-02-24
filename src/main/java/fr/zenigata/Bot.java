@@ -17,6 +17,7 @@ import discord4j.core.event.ReactiveEventAdapter;
 import discord4j.core.event.domain.lifecycle.ReadyEvent;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Message;
+import discord4j.core.object.entity.channel.Channel.Type;
 import discord4j.core.object.reaction.ReactionEmoji;
 import fr.zenigata.command.Command;
 import reactor.core.publisher.Flux;
@@ -68,9 +69,11 @@ public class Bot extends ReactiveEventAdapter {
   public Publisher<?> onMessageCreate(MessageCreateEvent event) {
     final Message message = event.getMessage();
     final boolean isBot = message.getAuthor().map(user -> user.isBot()).orElse(false);
-    boolean usesPrefix = message.getContent().toLowerCase().startsWith(PREFIX_MARK);
+    final Boolean isADM = message.getChannel().map(chan -> chan.getType() == Type.DM || chan.getType() == Type.GROUP_DM)
+        .block();
+    final boolean usesPrefix = message.getContent().toLowerCase().startsWith(PREFIX_MARK);
 
-    if (isBot || !usesPrefix) {
+    if (isBot || !usesPrefix || isADM) {
       return Mono.empty();
     }
 
