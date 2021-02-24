@@ -25,7 +25,8 @@ import reactor.core.publisher.Mono;
 public class Bot extends ReactiveEventAdapter {
 
   public static final String TABLE_FICTION = "Fiction";
-  public static final String PREFIX = "!";
+  public static final String PREFIX_MARK = "!";
+  public static final String PREFIX = PREFIX_MARK + "";
 
   private String token;
   private Map<String, Command> commands;
@@ -67,8 +68,9 @@ public class Bot extends ReactiveEventAdapter {
   public Publisher<?> onMessageCreate(MessageCreateEvent event) {
     final Message message = event.getMessage();
     final boolean isBot = message.getAuthor().map(user -> user.isBot()).orElse(false);
+    boolean usesPrefix = message.getContent().toLowerCase().startsWith(PREFIX_MARK);
 
-    if (isBot) {
+    if (isBot || !usesPrefix) {
       return Mono.empty();
     }
 
@@ -83,7 +85,7 @@ public class Bot extends ReactiveEventAdapter {
   }
 
   private Publisher<?> parseAndExecute(Message message) throws HttpResponseException, AirtableException {
-    final String commandline = message.getContent().substring(PREFIX.length()).trim();
+    final String commandline = message.getContent().substring(PREFIX_MARK.length()).trim();
     final String[] commandParts = commandline.split("[\\s\\r\\n]+", 2);
     final String commandName = commandParts[0].toLowerCase();
     String parameter = "";
@@ -94,7 +96,8 @@ public class Bot extends ReactiveEventAdapter {
 
     Command command = commands.get(commandName);
     if (command == null) {
-      return SpecUtils.displayError(message, "Commande **" + commandName + "** inconnue. Tapez **!help**.");
+      return SpecUtils.displayError(message,
+          "Commande **" + commandName + "** inconnue. Tapez **" + PREFIX + "help**.");
     }
     return command.execute(message, parameter, base);
   }
