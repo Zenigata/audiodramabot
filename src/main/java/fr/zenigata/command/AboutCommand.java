@@ -30,7 +30,7 @@ public class AboutCommand implements Command {
         .addField(":coffee: Open source",
             "Contribuez à ce bot sous license GPL-3.0 sur [GitHub](https://github.com/Zenigata/audiodramabot).", true)
         .addField(":headphones: " + allFictions.size() + " fictions répertoriées",
-            "Maintenu via Airtable et historisé sur [GitHub](https://github.com/Zenigata/awesome-audio-drama).",
+            "Maintenues via Airtable et historisées sur [GitHub](https://github.com/Zenigata/awesome-audio-drama).",
             true)));
   }
 }

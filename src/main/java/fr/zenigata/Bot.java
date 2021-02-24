@@ -25,7 +25,7 @@ import reactor.core.publisher.Mono;
 public class Bot extends ReactiveEventAdapter {
 
   public static final String TABLE_FICTION = "Fiction";
-  private static final String PREFIX = "!";
+  public static final String PREFIX = "!";
 
   private String token;
   private Map<String, Command> commands;
@@ -84,7 +84,7 @@ public class Bot extends ReactiveEventAdapter {
 
   private Publisher<?> parseAndExecute(Message message) throws HttpResponseException, AirtableException {
     final String commandline = message.getContent().substring(PREFIX.length()).trim();
-    final String[] commandParts = commandline.trim().split("[\\s\\r\\n]+", 2);
+    final String[] commandParts = commandline.split("[\\s\\r\\n]+", 2);
     final String commandName = commandParts[0].toLowerCase();
     String parameter = "";
 
@@ -93,6 +93,9 @@ public class Bot extends ReactiveEventAdapter {
     }
 
     Command command = commands.get(commandName);
+    if (command == null) {
+      return SpecUtils.displayError(message, "Commande **" + commandName + "** inconnue. Tapez **!help**.");
+    }
     return command.execute(message, parameter, base);
   }
 

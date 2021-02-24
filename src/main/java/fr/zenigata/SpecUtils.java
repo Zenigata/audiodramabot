@@ -3,8 +3,13 @@ package fr.zenigata;
 import java.util.List;
 import java.util.function.Consumer;
 
+import org.reactivestreams.Publisher;
+
+import discord4j.core.object.entity.Message;
+import discord4j.core.object.reaction.ReactionEmoji;
 import discord4j.core.spec.EmbedCreateSpec;
 import discord4j.rest.util.Color;
+import reactor.core.publisher.Flux;
 
 public class SpecUtils {
 
@@ -45,6 +50,12 @@ public class SpecUtils {
         .addField(":clock4: Durée", SpecUtils.displayDuration(fiction.getDuration()), true)
         .addField(":vertical_traffic_light: Statut", SpecUtils.displayStatus(fiction.getStatus()), true)
         .setFooter("Fiction francophone", "https://flags.fmcdn.net/data/flags/mini/fr.png");
+  }
+
+  public static Publisher<?> displayError(Message message, String error) {
+    return Flux.concat(message.addReaction(ReactionEmoji.unicode("\u274c")), message.getChannel().flatMap(c -> {
+      return c.createEmbed(s -> s.setTitle("Oups !").setDescription(error).setColor(Color.RED));
+    }));
   }
 
 }

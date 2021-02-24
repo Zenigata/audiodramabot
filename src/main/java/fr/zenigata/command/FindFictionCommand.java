@@ -9,13 +9,10 @@ import org.apache.http.client.HttpResponseException;
 import org.reactivestreams.Publisher;
 
 import discord4j.core.object.entity.Message;
-import discord4j.core.object.reaction.ReactionEmoji;
-import discord4j.rest.util.Color;
 import fr.zenigata.Bot;
 import fr.zenigata.Fiction;
 import fr.zenigata.FindFictionByNameQuery;
 import fr.zenigata.SpecUtils;
-import reactor.core.publisher.Flux;
 
 public class FindFictionCommand implements Command {
 
@@ -27,14 +24,15 @@ public class FindFictionCommand implements Command {
   @Override
   public Publisher<?> execute(Message message, String parameter, Base base)
       throws HttpResponseException, AirtableException {
+    if (parameter == null || parameter.trim().isEmpty()) {
+      return SpecUtils.displayError(message, "Indiquez le nom de la fiction à afficher.");
+    }
+
     FindFictionByNameQuery query = new FindFictionByNameQuery(parameter);
     List<Fiction> found = base.table(Bot.TABLE_FICTION, Fiction.class).select(query);
 
     if (found.size() == 0) {
-      return Flux.concat(message.addReaction(ReactionEmoji.unicode("\u274c")), message.getChannel().flatMap(c -> {
-        return c.createEmbed(s -> s.setTitle("Inconnu")
-            .setDescription("Aucune fiction ne contient *" + parameter + "* dans son nom.").setColor(Color.RED));
-      }));
+      return SpecUtils.displayError(message, "Aucune fiction ne contient *" + parameter + "* dans son nom.");
     }
     Fiction fiction = found.get(0);
 
