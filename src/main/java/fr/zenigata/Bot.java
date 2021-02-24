@@ -18,16 +18,13 @@ import discord4j.core.event.domain.lifecycle.ReadyEvent;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Message;
 import discord4j.core.object.entity.channel.Channel.Type;
-import discord4j.core.object.reaction.ReactionEmoji;
 import fr.zenigata.command.Command;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public class Bot extends ReactiveEventAdapter {
 
   public static final String TABLE_FICTION = "Fiction";
-  public static final String PREFIX_MARK = "!";
-  public static final String PREFIX = PREFIX_MARK + "";
+  public static final String PREFIX = "!fic-";
 
   private String token;
   private Map<String, Command> commands;
@@ -71,7 +68,7 @@ public class Bot extends ReactiveEventAdapter {
     final boolean isBot = message.getAuthor().map(user -> user.isBot()).orElse(false);
     final Boolean isADM = message.getChannel().map(chan -> chan.getType() == Type.DM || chan.getType() == Type.GROUP_DM)
         .block();
-    final boolean usesPrefix = message.getContent().toLowerCase().startsWith(PREFIX_MARK);
+    final boolean usesPrefix = message.getContent().toLowerCase().startsWith(PREFIX);
 
     if (isBot || !usesPrefix || isADM) {
       return Mono.empty();
@@ -88,7 +85,7 @@ public class Bot extends ReactiveEventAdapter {
   }
 
   private Publisher<?> parseAndExecute(Message message) throws HttpResponseException, AirtableException {
-    final String commandline = message.getContent().substring(PREFIX_MARK.length()).trim();
+    final String commandline = message.getContent().substring(PREFIX.length()).trim();
     final String[] commandParts = commandline.split("[\\s\\r\\n]+", 2);
     final String commandName = commandParts[0].toLowerCase();
     String parameter = "";
