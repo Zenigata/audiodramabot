@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to audiodramabot 👋</h1>
+<h1 align="center">Welcome to Drama 👋</h1>
 <p>
   <a href="https://www.gnu.org/licenses/gpl-3.0.fr.html" target="_blank">
     <img alt="License: GPLv3" src="https://img.shields.io/badge/License-GPLv3-yellow.svg" />
