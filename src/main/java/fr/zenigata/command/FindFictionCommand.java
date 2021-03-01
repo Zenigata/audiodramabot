@@ -2,14 +2,15 @@ package fr.zenigata.command;
 
 import java.util.List;
 
-import com.sybit.airtable.Base;
+import com.sybit.airtable.Query;
 import com.sybit.airtable.exception.AirtableException;
 
 import org.apache.http.client.HttpResponseException;
 import org.reactivestreams.Publisher;
 
-import discord4j.core.object.entity.Message;
+import discord4j.core.event.domain.message.MessageCreateEvent;
 import fr.zenigata.Bot;
+import fr.zenigata.CommandManager;
 import fr.zenigata.Fiction;
 import fr.zenigata.FindFictionByNameQuery;
 import fr.zenigata.SpecUtils;
@@ -22,22 +23,22 @@ public class FindFictionCommand implements Command {
   }
 
   @Override
-  public Publisher<?> execute(Message message, String parameter, Base base)
+  public Publisher<?> execute(MessageCreateEvent event, String parameter)
       throws HttpResponseException, AirtableException {
     if (parameter == null || parameter.trim().isEmpty()) {
-      return SpecUtils.displayError(message, "Indiquez le nom de la fiction à afficher.");
+      return SpecUtils.displayError(event.getMessage(), "Indiquez le nom de la fiction à afficher.");
     }
 
-    FindFictionByNameQuery query = new FindFictionByNameQuery(parameter);
-    List<Fiction> found = base.table(Bot.TABLE_FICTION, Fiction.class).select(query);
+    Query query = new FindFictionByNameQuery(parameter);
+    List<Fiction> found = CommandManager.getInstance().getBase().table(Bot.TABLE_FICTION, Fiction.class).select(query);
 
     if (found.size() == 0) {
-      return SpecUtils.displayError(message, "Aucune fiction ne contient *" + parameter
+      return SpecUtils.displayError(event.getMessage(), "Aucune fiction ne contient *" + parameter
           + "* dans son nom. [Ajoutez-la](https://airtable.com/shrxmDTMyZz7BQMKG) vous-même !");
     }
     Fiction fiction = found.get(0);
 
-    return message.getChannel().flatMap(c -> c.createEmbed(SpecUtils.displayFiction(fiction)));
+    return event.getMessage().getChannel().flatMap(c -> c.createEmbed(SpecUtils.displayFiction(fiction)));
   }
 
 }

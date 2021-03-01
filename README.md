@@ -14,6 +14,9 @@ Commandes disponibles :
 * `!fic-about` donne des informations sur ce bot.
 * `!fic-find nom` renvoie la première fiction trouvée contenant ce nom (⚠️ aux accents).
 * `!fic-random` renvoie le détail d'une fiction aléatoire.
+* `!fic-join` attire le bot dans un canal vocal.
+* `!fic-leave` expulse le bot du canal vocal.
+* `!fic-play nom S01 E02` joue en vocal l'épisode 2 de la saison 1. Nécessite `!fic-join`.
 
 ## Install
 

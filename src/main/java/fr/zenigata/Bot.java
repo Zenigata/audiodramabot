@@ -4,8 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
+import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
+import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
+import com.sedmelluq.discord.lavaplayer.track.playback.NonAllocatingAudioFrameBuffer;
 import com.sybit.airtable.Airtable;
-import com.sybit.airtable.Base;
 import com.sybit.airtable.exception.AirtableException;
 
 import org.apache.http.client.HttpResponseException;
@@ -29,7 +33,6 @@ public class Bot extends ReactiveEventAdapter {
   private String token;
   private Map<String, Command> commands;
   private GatewayDiscordClient client;
-  private Base base;
 
   public Bot(String token) {
     this.token = token;
@@ -50,7 +53,17 @@ public class Bot extends ReactiveEventAdapter {
 
   public void login(String baseId) throws AirtableException {
     Airtable airtable = new Airtable().configure();
-    this.base = airtable.base(baseId);
+    CommandManager.getInstance().setBase(airtable.base(baseId));
+
+    AudioPlayerManager playerManager = new DefaultAudioPlayerManager();
+    playerManager.getConfiguration().setFrameBufferFactory(NonAllocatingAudioFrameBuffer::new);
+    AudioSourceManagers.registerRemoteSources(playerManager);
+    CommandManager.getInstance().setPlayerManager(playerManager);
+
+    AudioPlayer player = playerManager.createPlayer();
+    CommandManager.getInstance().setPlayer(player);
+    CommandManager.getInstance().setProvider(new LavaPlayerAudioProvider(player));
+    CommandManager.getInstance().setScheduler(new TrackScheduler(player));
 
     client = DiscordClientBuilder.create(token).build().login().block();
     client.on(this).subscribe();
@@ -76,7 +89,7 @@ public class Bot extends ReactiveEventAdapter {
 
     Publisher<?> possibleResponse;
     try {
-      possibleResponse = parseAndExecute(message);
+      possibleResponse = parseAndExecute(event);
     } catch (HttpResponseException | AirtableException e) {
       e.printStackTrace();
       return Mono.empty();
@@ -84,8 +97,8 @@ public class Bot extends ReactiveEventAdapter {
     return possibleResponse;
   }
 
-  private Publisher<?> parseAndExecute(Message message) throws HttpResponseException, AirtableException {
-    final String commandline = message.getContent().substring(PREFIX.length()).trim();
+  private Publisher<?> parseAndExecute(MessageCreateEvent event) throws HttpResponseException, AirtableException {
+    final String commandline = event.getMessage().getContent().substring(PREFIX.length()).trim();
     final String[] commandParts = commandline.split("[\\s\\r\\n]+", 2);
     final String commandName = commandParts[0].toLowerCase();
     String parameter = "";
@@ -98,7 +111,7 @@ public class Bot extends ReactiveEventAdapter {
     if (command == null) {
       return Mono.empty();
     }
-    return command.execute(message, parameter, base);
+    return command.execute(event, parameter);
   }
 
 }
