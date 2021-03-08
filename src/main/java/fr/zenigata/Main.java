@@ -8,11 +8,11 @@ import org.slf4j.LoggerFactory;
 import fr.zenigata.command.AboutCommand;
 import fr.zenigata.command.FindFictionCommand;
 import fr.zenigata.command.HelpCommand;
-import fr.zenigata.command.JoinCommand;
-import fr.zenigata.command.LeaveCommand;
+import fr.zenigata.command.PauseCommand;
 import fr.zenigata.command.PingCommand;
 import fr.zenigata.command.PlayCommand;
 import fr.zenigata.command.RandomFictionCommand;
+import fr.zenigata.command.StopCommand;
 
 public class Main {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
@@ -24,7 +24,7 @@ public class Main {
 
         Bot bot = new Bot(args[0]);
         bot.addCommands(new PingCommand(), new RandomFictionCommand(), new FindFictionCommand(), new AboutCommand(),
-                new HelpCommand(), new JoinCommand(), new PlayCommand(), new LeaveCommand());
+                new HelpCommand(), new PlayCommand(), new StopCommand(), new PauseCommand());
         try {
             bot.login("appR1sA7OvhBJbdgC");
         } catch (AirtableException e) {

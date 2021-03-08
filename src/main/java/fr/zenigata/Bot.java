@@ -4,11 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
-import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
-import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
-import com.sedmelluq.discord.lavaplayer.track.playback.NonAllocatingAudioFrameBuffer;
 import com.sybit.airtable.Airtable;
 import com.sybit.airtable.exception.AirtableException;
 
@@ -54,16 +49,6 @@ public class Bot extends ReactiveEventAdapter {
   public void login(String baseId) throws AirtableException {
     Airtable airtable = new Airtable().configure();
     CommandManager.getInstance().setBase(airtable.base(baseId));
-
-    AudioPlayerManager playerManager = new DefaultAudioPlayerManager();
-    playerManager.getConfiguration().setFrameBufferFactory(NonAllocatingAudioFrameBuffer::new);
-    AudioSourceManagers.registerRemoteSources(playerManager);
-    CommandManager.getInstance().setPlayerManager(playerManager);
-
-    AudioPlayer player = playerManager.createPlayer();
-    CommandManager.getInstance().setPlayer(player);
-    CommandManager.getInstance().setProvider(new LavaPlayerAudioProvider(player));
-    CommandManager.getInstance().setScheduler(new TrackScheduler(player));
 
     client = DiscordClientBuilder.create(token).build().login().block();
     client.on(this).subscribe();

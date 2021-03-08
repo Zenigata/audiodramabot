@@ -21,10 +21,8 @@ public class HelpCommand implements Command {
     messages.add("**" + Bot.PREFIX
         + "find** *<nom>* renvoie la première fiction trouvée contenant ce nom (:warning: aux accents).");
     messages.add("**" + Bot.PREFIX + "random** renvoie le détail d'une fiction aléatoire.");
-    messages.add("**" + Bot.PREFIX + "join** attire le bot dans un canal vocal.");
-    messages.add("**" + Bot.PREFIX + "leave** expulse le bot du canal vocal.");
-    messages.add("**" + Bot.PREFIX + "play** *<nom>* *<S0X>* *<EXX>* joue en vocal un épisode. Nécessite **"
-        + Bot.PREFIX + "join**.");
+    messages.add("**" + Bot.PREFIX + "play** *<nom>* *<S0X>* *<EXX>* joue en vocal un épisode.");
+    messages.add("**" + Bot.PREFIX + "stop** arrête et expulse le bot du canal vocal.");
     return event.getMessage().getChannel().flatMap(chan -> chan.createMessage(String.join("\n", messages)));
   }
 }

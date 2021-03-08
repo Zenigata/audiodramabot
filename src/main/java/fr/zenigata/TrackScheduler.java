@@ -1,38 +1,42 @@
 package fr.zenigata;
 
-import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
-import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
-import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrackState;
 
-public class TrackScheduler implements AudioLoadResultHandler {
+import discord4j.voice.VoiceConnection;
+
+public class TrackScheduler {
 
   private AudioPlayer player;
+  private AudioTrack currentTrack;
 
-  public TrackScheduler(AudioPlayer player) {
+  public TrackScheduler(AudioPlayer player, VoiceConnection volume) {
     this.player = player;
   }
 
-  @Override
-  public void loadFailed(FriendlyException arg0) {
-    // LavaPlayer could not parse an audio source for some reason
+  public boolean startOrQueue(AudioTrack track) {
+    this.currentTrack = track;
+    return this.player.startTrack(track, false);
   }
 
-  @Override
-  public void noMatches() {
-    // LavaPlayer did not find any audio to extract
+  public boolean isStopped() {
+    return !this.isPlaying();
   }
 
-  @Override
-  public void playlistLoaded(AudioPlaylist playlist) {
-    // LavaPlayer found multiple AudioTracks from some playlist
+  private boolean isPlaying() {
+    return this.player.getPlayingTrack() != null;
   }
 
-  @Override
-  public void trackLoaded(AudioTrack track) {
-    // LavaPlayer found an audio source for us to play
-    player.playTrack(track);
+  public AudioPlayer getPlayer() {
+    return player;
+  }
+
+  public void destroy() {
+    if (this.currentTrack != null && this.currentTrack.getState() == AudioTrackState.PLAYING) {
+      this.currentTrack.stop();
+    }
+    this.player.destroy();
   }
 
 }
