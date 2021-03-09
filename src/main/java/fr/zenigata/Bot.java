@@ -22,7 +22,6 @@ import reactor.core.publisher.Mono;
 
 public class Bot extends ReactiveEventAdapter {
 
-  public static final String TABLE_FICTION = "Fiction";
   public static final String PREFIX = "!fic-";
 
   private String token;

@@ -5,6 +5,8 @@ import java.util.List;
 import com.sybit.airtable.Query;
 import com.sybit.airtable.Sort;
 
+import fr.zenigata.util.QueryUtils;
+
 public class FindEpisodeByNameQuery implements Query {
 
   private String parameter;
@@ -15,12 +17,13 @@ public class FindEpisodeByNameQuery implements Query {
 
   @Override
   public String filterByFormula() {
-    return "\"" + parameter + "\" = Path";
+    return "\"" + parameter + "\" = " + QueryUtils.FIELD_PATH;
   }
 
   @Override
   public String[] getFields() {
-    return new String[] { "Nom", "Piste", "Durée", "Path" };
+    return new String[] { QueryUtils.FIELD_NOM, QueryUtils.FIELD_PISTE, QueryUtils.FIELD_DUREE, QueryUtils.FIELD_PATH,
+        QueryUtils.FIELD_AUTEUR };
   }
 
   @Override

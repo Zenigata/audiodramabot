@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import discord4j.core.event.domain.message.MessageCreateEvent;
-import fr.zenigata.Bot;
 import fr.zenigata.CommandManager;
 import fr.zenigata.data.Fiction;
 import fr.zenigata.util.QueryUtils;
@@ -29,11 +28,23 @@ public class RandomFictionCommand implements Command {
   @Override
   public Publisher<?> execute(MessageCreateEvent event, String parameter)
       throws HttpResponseException, AirtableException {
-    List<Fiction> allFictions = QueryUtils.retrieveAllFictions(CommandManager.getInstance().getBase());
+    List<Fiction> fictions;
+    if (parameter == null || parameter.isBlank()) {
+      fictions = QueryUtils.retrieveAllFictions(CommandManager.getInstance().getBase());
+    } else {
+      logger.debug("Random genre: {}", parameter);
+      fictions = QueryUtils.retrieveAllFictionsByGenre(CommandManager.getInstance().getBase(), parameter);
+    }
+    logger.debug("Random list: {}", fictions.size());
+
+    if (fictions.size() <= 0) {
+      return SpecUtils.displayError(event.getMessage(), "Le genre **" + parameter + "** est inconnu.");
+    }
 
     Random random = new Random();
-    Fiction fiction = (Fiction) CommandManager.getInstance().getBase().table(Bot.TABLE_FICTION, Fiction.class)
-        .find(allFictions.get(random.nextInt(allFictions.size())).getId());
+    String fictionId = fictions.get(random.nextInt(fictions.size())).getId();
+    Fiction fiction = (Fiction) CommandManager.getInstance().getBase().table(QueryUtils.TABLE_FICTION, Fiction.class)
+        .find(fictionId);
     logger.debug("Nom: {}", fiction.getName());
 
     return event.getMessage().getChannel().flatMap(c -> c.createEmbed(SpecUtils.displayFiction(fiction)));

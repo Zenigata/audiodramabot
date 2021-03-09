@@ -13,7 +13,7 @@
 Commandes disponibles :
 * `!fic-about` donne des informations sur ce bot.
 * `!fic-find nom` renvoie la première fiction trouvée contenant ce nom (⚠️ aux accents).
-* `!fic-random` renvoie le détail d'une fiction aléatoire.
+* `!fic-random genre` renvoie le détail d'une fiction aléatoire (genre optionnel ⚠️ aux accents).
 * `!fic-play nom S01 E02` joue en vocal l'épisode 2 de la saison 1.
 * `!fic-pause` suspend ou reprend l'épisode écouté.
 * `!fic-stop` arrête et expulse le bot du canal vocal.

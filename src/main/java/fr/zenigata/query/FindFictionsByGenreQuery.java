@@ -7,27 +7,27 @@ import com.sybit.airtable.Sort;
 
 import fr.zenigata.util.QueryUtils;
 
-public class FindFictionByNameQuery implements Query {
+public class FindFictionsByGenreQuery implements Query {
 
   private String parameter;
 
-  public FindFictionByNameQuery(String parameter) {
+  public FindFictionsByGenreQuery(String parameter) {
     this.parameter = parameter;
   }
 
   @Override
   public String filterByFormula() {
-    return "SEARCH(LOWER(\"" + parameter + "\"), LOWER(" + QueryUtils.FIELD_NOM + ")) > 0";
+    return "SEARCH(LOWER(\"" + parameter + "\"), LOWER(" + QueryUtils.FIELD_GENRE + ")) > 0";
   }
 
   @Override
   public String[] getFields() {
-    return null;
+    return new String[] { QueryUtils.FIELD_RECORD_ID };
   }
 
   @Override
   public Integer getMaxRecords() {
-    return 1;
+    return null;
   }
 
   @Override
