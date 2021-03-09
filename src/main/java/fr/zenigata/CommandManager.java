@@ -2,6 +2,8 @@ package fr.zenigata;
 
 import com.sybit.airtable.Base;
 
+import fr.zenigata.music.MusicManager;
+
 public class CommandManager {
 
   private static CommandManager instance = null;

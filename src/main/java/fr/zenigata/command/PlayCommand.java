@@ -16,15 +16,15 @@ import discord4j.core.object.VoiceState;
 import discord4j.core.object.entity.Member;
 import discord4j.core.object.entity.Message;
 import discord4j.core.object.entity.channel.MessageChannel;
-import fr.zenigata.AudioLoadResultListener;
+import fr.zenigata.music.AudioLoadResultListener;
 import fr.zenigata.Bot;
 import fr.zenigata.CommandManager;
-import fr.zenigata.Episode;
-import fr.zenigata.Fiction;
-import fr.zenigata.FindEpisodeByNameQuery;
-import fr.zenigata.FindFictionByNameQuery;
-import fr.zenigata.GuildMusic;
-import fr.zenigata.SpecUtils;
+import fr.zenigata.data.Episode;
+import fr.zenigata.data.Fiction;
+import fr.zenigata.query.FindEpisodeByNameQuery;
+import fr.zenigata.query.FindFictionByNameQuery;
+import fr.zenigata.music.GuildMusic;
+import fr.zenigata.util.SpecUtils;
 import reactor.core.publisher.Mono;
 
 public class PlayCommand implements Command {

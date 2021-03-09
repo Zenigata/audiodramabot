@@ -1,4 +1,4 @@
-package fr.zenigata;
+package fr.zenigata.music;
 
 import java.nio.ByteBuffer;
 

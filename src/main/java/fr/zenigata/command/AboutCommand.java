@@ -9,8 +9,8 @@ import org.reactivestreams.Publisher;
 
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import fr.zenigata.CommandManager;
-import fr.zenigata.Fiction;
-import fr.zenigata.QueryUtils;
+import fr.zenigata.data.Fiction;
+import fr.zenigata.util.QueryUtils;
 
 public class AboutCommand implements Command {
   @Override
@@ -23,7 +23,7 @@ public class AboutCommand implements Command {
       throws HttpResponseException, AirtableException {
     List<Fiction> allFictions = QueryUtils.retrieveAllFictions(CommandManager.getInstance().getBase());
 
-    return event.getMessage().getChannel().flatMap(c -> c.createEmbed(s -> s.setTitle("Audio Drama Bot version 0.2")
+    return event.getMessage().getChannel().flatMap(c -> c.createEmbed(s -> s.setTitle("Audio Drama Bot version 0.3")
         .setThumbnail("https://raw.githubusercontent.com/Zenigata/audiodramabot/main/img/logo.jpg")
         .setFooter("Fait avec amour pour la communauté !",
             "https://raw.githubusercontent.com/Zenigata/audiodramabot/main/img/logo.jpg")

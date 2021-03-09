@@ -1,4 +1,4 @@
-package fr.zenigata;
+package fr.zenigata.data;
 
 import com.google.gson.annotations.SerializedName;
 

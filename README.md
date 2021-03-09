@@ -15,6 +15,7 @@ Commandes disponibles :
 * `!fic-find nom` renvoie la première fiction trouvée contenant ce nom (⚠️ aux accents).
 * `!fic-random` renvoie le détail d'une fiction aléatoire.
 * `!fic-play nom S01 E02` joue en vocal l'épisode 2 de la saison 1.
+* `!fic-pause` suspend ou reprend l'épisode écouté.
 * `!fic-stop` arrête et expulse le bot du canal vocal.
 
 ## Install
@@ -31,9 +32,9 @@ Commandes disponibles :
 
 ## Special thanks
 
-https://github.com/timlg07/Mr-Turing
-https://github.com/Kaysoro/KaellyBot
-https://github.com/Shadorc/Shadbot
+* https://github.com/timlg07/Mr-Turing
+* https://github.com/Kaysoro/KaellyBot
+* https://github.com/Shadorc/Shadbot
 
 
 ## Author

@@ -1,4 +1,4 @@
-package fr.zenigata;
+package fr.zenigata.music;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,6 +12,7 @@ import discord4j.common.util.Snowflake;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.object.entity.channel.MessageChannel;
 import discord4j.voice.VoiceConnection;
+import fr.zenigata.CommandManager;
 import reactor.core.publisher.Mono;
 
 public class GuildMusic {

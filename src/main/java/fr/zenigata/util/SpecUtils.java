@@ -1,4 +1,4 @@
-package fr.zenigata;
+package fr.zenigata.util;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -9,6 +9,7 @@ import discord4j.core.object.entity.Message;
 import discord4j.core.object.reaction.ReactionEmoji;
 import discord4j.core.spec.EmbedCreateSpec;
 import discord4j.rest.util.Color;
+import fr.zenigata.data.Fiction;
 import reactor.core.publisher.Flux;
 
 public class SpecUtils {

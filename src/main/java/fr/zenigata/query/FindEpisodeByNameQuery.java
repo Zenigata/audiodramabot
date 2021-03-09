@@ -1,26 +1,26 @@
-package fr.zenigata;
+package fr.zenigata.query;
 
 import java.util.List;
 
 import com.sybit.airtable.Query;
 import com.sybit.airtable.Sort;
 
-public class FindFictionByNameQuery implements Query {
+public class FindEpisodeByNameQuery implements Query {
 
   private String parameter;
 
-  public FindFictionByNameQuery(String parameter) {
+  public FindEpisodeByNameQuery(String parameter) {
     this.parameter = parameter;
   }
 
   @Override
   public String filterByFormula() {
-    return "SEARCH(LOWER(\"" + parameter + "\"), LOWER(Nom)) > 0";
+    return "\"" + parameter + "\" = Path";
   }
 
   @Override
   public String[] getFields() {
-    return null;
+    return new String[] { "Nom", "Piste", "Durée", "Path" };
   }
 
   @Override

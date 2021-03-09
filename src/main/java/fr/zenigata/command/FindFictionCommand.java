@@ -11,9 +11,9 @@ import org.reactivestreams.Publisher;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import fr.zenigata.Bot;
 import fr.zenigata.CommandManager;
-import fr.zenigata.Fiction;
-import fr.zenigata.FindFictionByNameQuery;
-import fr.zenigata.SpecUtils;
+import fr.zenigata.data.Fiction;
+import fr.zenigata.query.FindFictionByNameQuery;
+import fr.zenigata.util.SpecUtils;
 
 public class FindFictionCommand implements Command {
 

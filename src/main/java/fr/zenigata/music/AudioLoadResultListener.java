@@ -1,4 +1,4 @@
-package fr.zenigata;
+package fr.zenigata.music;
 
 import java.util.Objects;
 
@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import discord4j.common.util.Snowflake;
+import fr.zenigata.CommandManager;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 

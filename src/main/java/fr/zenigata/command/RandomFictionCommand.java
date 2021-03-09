@@ -13,9 +13,9 @@ import org.slf4j.LoggerFactory;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import fr.zenigata.Bot;
 import fr.zenigata.CommandManager;
-import fr.zenigata.Fiction;
-import fr.zenigata.QueryUtils;
-import fr.zenigata.SpecUtils;
+import fr.zenigata.data.Fiction;
+import fr.zenigata.util.QueryUtils;
+import fr.zenigata.util.SpecUtils;
 
 public class RandomFictionCommand implements Command {
 

@@ -1,4 +1,4 @@
-package fr.zenigata;
+package fr.zenigata.util;
 
 import java.util.List;
 
@@ -8,6 +8,9 @@ import com.sybit.airtable.exception.AirtableException;
 import org.apache.http.client.HttpResponseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import fr.zenigata.Bot;
+import fr.zenigata.data.Fiction;
 
 public class QueryUtils {
 
