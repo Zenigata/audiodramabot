@@ -50,7 +50,15 @@ public class SpecUtils {
         .addField(":dividers: Genre", SpecUtils.displayGenres(fiction.getGenres()), true).setUrl(fiction.getSite())
         .addField(":clock4: Durée", SpecUtils.displayDuration(fiction.getDuration()), true)
         .addField(":vertical_traffic_light: Statut", SpecUtils.displayStatus(fiction.getStatus()), true)
+        .addField("Une fiction de", SpecUtils.displayAuthors(fiction.getAuthors()), false)
         .setFooter("Fiction francophone", "https://flags.fmcdn.net/data/flags/mini/fr.png");
+  }
+
+  private static String displayAuthors(List<String> authors) {
+    if (authors == null || authors.size() == 0) {
+      return "";
+    }
+    return String.join(", ", authors);
   }
 
   public static Publisher<?> displayError(Message message, String error) {

@@ -27,6 +27,9 @@ public class Fiction {
   @SerializedName("Durée")
   private Float duration;
 
+  @SerializedName("Auteur")
+  private List<String> authors;
+
   @SerializedName("Pochette")
   private List<Attachment> covers;
 
@@ -92,6 +95,14 @@ public class Fiction {
 
   public void setGenres(List<String> genres) {
     this.genres = genres;
+  }
+
+  public List<String> getAuthors() {
+    return authors;
+  }
+
+  public void setAuthors(List<String> authors) {
+    this.authors = authors;
   }
 
 }
