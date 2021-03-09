@@ -24,6 +24,7 @@ import fr.zenigata.data.Fiction;
 import fr.zenigata.query.FindEpisodeByNameQuery;
 import fr.zenigata.query.FindFictionByNameQuery;
 import fr.zenigata.music.GuildMusic;
+import fr.zenigata.util.QueryUtils;
 import fr.zenigata.util.SpecUtils;
 import reactor.core.publisher.Mono;
 
@@ -62,7 +63,7 @@ public class PlayCommand implements Command {
     String episodeNumber = parameters.length > 2 ? parameters[2].toUpperCase() : DEFAULT_EPISODE_ONE;
 
     Query fictionQuery = new FindFictionByNameQuery(fictionNameToSearch);
-    List<Fiction> fictionsFound = CommandManager.getInstance().getBase().table(Bot.TABLE_FICTION, Fiction.class)
+    List<Fiction> fictionsFound = CommandManager.getInstance().getBase().table(QueryUtils.TABLE_FICTION, Fiction.class)
         .select(fictionQuery);
 
     if (fictionsFound.size() == 0) {
