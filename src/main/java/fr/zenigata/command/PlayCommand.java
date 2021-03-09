@@ -16,14 +16,14 @@ import discord4j.core.object.VoiceState;
 import discord4j.core.object.entity.Member;
 import discord4j.core.object.entity.Message;
 import discord4j.core.object.entity.channel.MessageChannel;
-import fr.zenigata.music.AudioLoadResultListener;
 import fr.zenigata.Bot;
 import fr.zenigata.CommandManager;
 import fr.zenigata.data.Episode;
 import fr.zenigata.data.Fiction;
+import fr.zenigata.music.AudioLoadResultListener;
+import fr.zenigata.music.GuildMusic;
 import fr.zenigata.query.FindEpisodeByNameQuery;
 import fr.zenigata.query.FindFictionByNameQuery;
-import fr.zenigata.music.GuildMusic;
 import fr.zenigata.util.QueryUtils;
 import fr.zenigata.util.SpecUtils;
 import reactor.core.publisher.Mono;
@@ -82,6 +82,11 @@ public class PlayCommand implements Command {
       return SpecUtils.displayError(event.getMessage(), "Aucun épisode trouvé avec l'indication *" + parameter + "*.");
     }
     Episode episodeFound = episodesFound.get(0);
+
+    if (episodeFound.getTrack() == null || episodeFound.getTrack().isBlank()) {
+      return SpecUtils.displayError(event.getMessage(),
+          "Cet épisode n'est pas disponible sur Discord. Allez voir [en ligne](" + fictionFound.getSite() + ") !");
+    }
 
     final Mono<Optional<Snowflake>> getUserVoiceChannelId = event.getMember().orElseThrow().getVoiceState()
         .map(VoiceState::getChannelId).defaultIfEmpty(Optional.empty());

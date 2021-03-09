@@ -22,8 +22,7 @@ public class FindEpisodeByNameQuery implements Query {
 
   @Override
   public String[] getFields() {
-    return new String[] { QueryUtils.FIELD_NOM, QueryUtils.FIELD_PISTE, QueryUtils.FIELD_DUREE, QueryUtils.FIELD_PATH,
-        QueryUtils.FIELD_AUTEUR };
+    return new String[] { QueryUtils.FIELD_NOM, QueryUtils.FIELD_PISTE, QueryUtils.FIELD_DUREE, QueryUtils.FIELD_PATH };
   }
 
   @Override
