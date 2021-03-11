@@ -38,9 +38,9 @@ public class QueryUtils {
   public static List<Fiction> retrieveAllFictionsByGenre(Base base, String genre)
       throws HttpResponseException, AirtableException {
     Query query = new FindFictionsByGenreQuery(genre);
-    List<Fiction> allFictions = base.table(TABLE_FICTION, Fiction.class).select(query);
-    logger.debug("Il y a {} fictions", allFictions.size());
-    return allFictions;
+    List<Fiction> allFictionsByGenre = base.table(TABLE_FICTION, Fiction.class).select(query);
+    logger.debug("Il y a {} fictions", allFictionsByGenre.size());
+    return allFictionsByGenre;
   }
 
   public static List<Fiction> findFictionWithName(String name) throws AirtableException {

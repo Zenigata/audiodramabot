@@ -33,6 +33,21 @@ public class Fiction {
   @SerializedName("Pochette")
   private List<Attachment> covers;
 
+  @SerializedName("Youtube")
+  private String youtube;
+
+  @SerializedName("Website")
+  private String website;
+
+  @SerializedName("RSS")
+  private String rss;
+
+  @SerializedName("Soundcloud")
+  private String soundcloud;
+
+  @SerializedName("Spotify")
+  private String spotify;
+
   public String getId() {
     return id;
   }
@@ -103,6 +118,46 @@ public class Fiction {
 
   public void setAuthors(List<String> authors) {
     this.authors = authors;
+  }
+
+  public String getYoutube() {
+    return youtube;
+  }
+
+  public void setYoutube(String youtube) {
+    this.youtube = youtube;
+  }
+
+  public String getWebsite() {
+    return website;
+  }
+
+  public void setWebsite(String website) {
+    this.website = website;
+  }
+
+  public String getRss() {
+    return rss;
+  }
+
+  public void setRss(String rss) {
+    this.rss = rss;
+  }
+
+  public String getSoundcloud() {
+    return soundcloud;
+  }
+
+  public void setSoundcloud(String soundcloud) {
+    this.soundcloud = soundcloud;
+  }
+
+  public String getSpotify() {
+    return spotify;
+  }
+
+  public void setSpotify(String spotify) {
+    this.spotify = spotify;
   }
 
 }

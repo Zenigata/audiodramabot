@@ -9,6 +9,8 @@ import com.sybit.airtable.exception.AirtableException;
 
 import org.apache.http.client.HttpResponseException;
 import org.reactivestreams.Publisher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import discord4j.core.DiscordClientBuilder;
 import discord4j.core.GatewayDiscordClient;
@@ -21,6 +23,8 @@ import fr.zenigata.command.Command;
 import reactor.core.publisher.Mono;
 
 public class Bot extends ReactiveEventAdapter {
+
+  private static final Logger logger = LoggerFactory.getLogger(Bot.class);
 
   public static final String PREFIX = "!fic-";
 
@@ -75,7 +79,7 @@ public class Bot extends ReactiveEventAdapter {
     try {
       possibleResponse = parseAndExecute(event);
     } catch (HttpResponseException | AirtableException e) {
-      e.printStackTrace();
+      logger.error("Error when parsing the command", e);
       return Mono.empty();
     }
     return possibleResponse;
