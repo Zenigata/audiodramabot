@@ -27,7 +27,7 @@ public class SpecUtils {
             : DEFAULT_IMAGE)
         .addField(":dividers: Genre", SpecUtils.displayGenres(fiction.getGenres()), true).setUrl(fiction.getSite())
         .addField(":information_source: Info",
-            ":clock4: " + SpecUtils.displayDuration(fiction.getDuration()) + "\n\n"
+            ":clock4: " + SpecUtils.displayDuration(fiction.getDuration()) + "\n"
                 + SpecUtils.displayStatus(fiction.getStatus()),
             true)
         .addField(":link: Liens", displayLinks(fiction), true)
