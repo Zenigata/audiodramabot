@@ -9,6 +9,7 @@ import discord4j.core.object.entity.Message;
 import discord4j.core.object.reaction.ReactionEmoji;
 import discord4j.core.spec.EmbedCreateSpec;
 import discord4j.rest.util.Color;
+import fr.zenigata.Bot;
 import fr.zenigata.data.Fiction;
 import reactor.core.publisher.Flux;
 
@@ -31,8 +32,17 @@ public class SpecUtils {
                 + SpecUtils.displayStatus(fiction.getStatus()),
             true)
         .addField(":link: Liens", displayLinks(fiction), true)
+        .addField(":musical_note: À écouter", SpecUtils.displayDiscord(fiction.isDiscord(), fiction.getName()), false)
         .addField("Une fiction de", SpecUtils.displayAuthors(fiction.getAuthors()), false)
         .setFooter("Fiction francophone", "https://flags.fmcdn.net/data/flags/mini/fr.png");
+  }
+
+  private static String displayDiscord(boolean discord, String fictionName) {
+    if (discord) {
+      return ":white_check_mark: Ici : `" + Bot.PREFIX + "play " + fictionName + "`";
+    } else {
+      return ":ballot_box_with_check: En ligne.";
+    }
   }
 
   public static String displayStatus(String status) {

@@ -48,6 +48,9 @@ public class Fiction {
   @SerializedName("Spotify")
   private String spotify;
 
+  @SerializedName("Discord")
+  private boolean discord;
+
   public String getId() {
     return id;
   }
@@ -158,6 +161,14 @@ public class Fiction {
 
   public void setSpotify(String spotify) {
     this.spotify = spotify;
+  }
+
+  public boolean isDiscord() {
+    return discord;
+  }
+
+  public void setDiscord(boolean discord) {
+    this.discord = discord;
   }
 
 }
