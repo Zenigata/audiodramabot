@@ -19,6 +19,7 @@ import discord4j.core.object.entity.channel.MessageChannel;
 import fr.zenigata.Bot;
 import fr.zenigata.CommandManager;
 import fr.zenigata.data.Episode;
+import fr.zenigata.data.EpisodeRequest;
 import fr.zenigata.data.Fiction;
 import fr.zenigata.music.AudioLoadResultListener;
 import fr.zenigata.music.GuildMusic;
@@ -32,10 +33,9 @@ public class PlayCommand implements Command {
   private static final Logger logger = LoggerFactory.getLogger(PlayCommand.class);
 
   private static final String PLAY = "play";
-  private static final String DEFAULT_SEASON_ONE = "S01";
-  private static final String DEFAULT_EPISODE_ONE = "E01";
-  private static final String BAD_SYNTAX_MESSAGE = "Mauvais format. Exemple : " + Bot.PREFIX + PLAY + " Rico "
-      + DEFAULT_SEASON_ONE + " " + DEFAULT_EPISODE_ONE;
+
+  private static final String BAD_SYNTAX_MESSAGE = "Mauvais format. Exemple : `" + Bot.PREFIX + PLAY
+      + " Mes rêves me parlent S01 E04` ou `" + Bot.PREFIX + PLAY + " Joyau des Ombres`";
 
   @Override
   public String getName() {
@@ -50,31 +50,24 @@ public class PlayCommand implements Command {
       return SpecUtils.displayError(event.getMessage(), "Veuillez rejoindre un canal vocal pour lancer l'écoute.");
     }
 
-    if (parameter == null || parameter.trim().isEmpty()) {
+    EpisodeRequest request = new EpisodeRequest(parameter);
+    if (request.getFictionName().isEmpty()) {
       return SpecUtils.displayError(event.getMessage(), BAD_SYNTAX_MESSAGE);
     }
 
-    String[] parameters = parameter.split(" ");
-    if (parameters.length > 3) {
-      return SpecUtils.displayError(event.getMessage(), BAD_SYNTAX_MESSAGE);
-    }
-    String fictionNameToSearch = parameters[0];
-    String saisonNumber = parameters.length > 1 ? parameters[1].toUpperCase() : DEFAULT_SEASON_ONE;
-    String episodeNumber = parameters.length > 2 ? parameters[2].toUpperCase() : DEFAULT_EPISODE_ONE;
-
-    Query fictionQuery = new FindFictionByNameQuery(fictionNameToSearch);
+    Query fictionQuery = new FindFictionByNameQuery(request.getFictionName());
     List<Fiction> fictionsFound = CommandManager.getInstance().getBase().table(QueryUtils.TABLE_FICTION, Fiction.class)
         .select(fictionQuery);
 
     if (fictionsFound.size() == 0) {
-      return SpecUtils.displayError(event.getMessage(), "Aucune fiction ne contient *" + parameter
+      return SpecUtils.displayError(event.getMessage(), "Aucune fiction ne contient *" + request.getFictionName()
           + "* dans son nom. [Ajoutez-la](https://airtable.com/shrxmDTMyZz7BQMKG) vous-même !");
     }
     Fiction fictionFound = fictionsFound.get(0);
     logger.debug(fictionFound.getName());
 
     Query episodeQuery = new FindEpisodeByNameQuery(
-        fictionFound.getName() + " - " + saisonNumber + " " + episodeNumber);
+        fictionFound.getName() + " - " + request.getSeasonNumber() + " " + request.getEpisodeNumber());
     List<Episode> episodesFound = CommandManager.getInstance().getBase().table("Épisode", Episode.class)
         .select(episodeQuery);
 
