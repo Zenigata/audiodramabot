@@ -24,9 +24,9 @@ public class AboutCommand implements Command {
     List<Fiction> allFictions = QueryUtils.retrieveAllFictions(CommandManager.getInstance().getBase());
 
     return event.getMessage().getChannel().flatMap(c -> c.createEmbed(s -> s.setTitle("Audio Drama Bot version 0.3")
-        .setThumbnail("https://raw.githubusercontent.com/Zenigata/audiodramabot/main/img/logo.jpg")
+        .setThumbnail("https://raw.githubusercontent.com/Zenigata/audiodramabot/main/img/logo.png")
         .setFooter("Fait avec amour pour la communauté !",
-            "https://raw.githubusercontent.com/Zenigata/audiodramabot/main/img/logo.jpg")
+            "https://raw.githubusercontent.com/Zenigata/audiodramabot/main/img/logo.png")
         .addField(":coffee: Open source",
             "Contribuez à ce bot sous license GPL-3.0 sur [GitHub](https://github.com/Zenigata/audiodramabot).", true)
         .addField(":headphones: " + allFictions.size() + " fictions répertoriées",

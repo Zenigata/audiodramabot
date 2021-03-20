@@ -14,7 +14,7 @@ import reactor.core.publisher.Flux;
 
 public class SpecUtils {
 
-  private static final String DEFAULT_IMAGE = "https://github.com/Zenigata/audiodramabot/raw/main/img/logo.jpg";
+  private static final String DEFAULT_IMAGE = "https://github.com/Zenigata/audiodramabot/raw/main/img/nocover.png";
   private static final String DEFAULT_MESSAGE = "NA";
 
   public static Consumer<? super EmbedCreateSpec> displayFiction(Fiction fiction) {
