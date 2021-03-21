@@ -3,6 +3,7 @@ package fr.zenigata.util;
 import java.util.List;
 import java.util.function.Consumer;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.reactivestreams.Publisher;
 
 import discord4j.core.object.entity.Message;
@@ -29,12 +30,19 @@ public class SpecUtils {
         .addField(":dividers: Genre", SpecUtils.displayGenres(fiction.getGenres()), true).setUrl(fiction.getSite())
         .addField(":information_source: Info",
             ":clock4: " + SpecUtils.displayDuration(fiction.getDuration()) + "\n"
-                + SpecUtils.displayStatus(fiction.getStatus()),
+                + SpecUtils.displayStatus(fiction.getStatus()) + SpecUtils.displayAwards(fiction.getAward()),
             true)
         .addField(":link: Liens", displayLinks(fiction), true)
         .addField(":musical_note: À écouter", SpecUtils.displayDiscord(fiction.isDiscord(), fiction.getName()), false)
         .addField("Une fiction de", SpecUtils.displayAuthors(fiction.getAuthors()), false)
         .setFooter("Fiction francophone", "https://flags.fmcdn.net/data/flags/mini/fr.png");
+  }
+
+  private static String displayAwards(List<String> award) {
+    if (CollectionUtils.isNotEmpty(award)) {
+      return "\n:medal: Lauréate [NSI :purple_circle:](https://nuitsansimage.fr/laureats \"Nuit Sans Image\")";
+    }
+    return "";
   }
 
   private static String displayDiscord(boolean discord, String fictionName) {

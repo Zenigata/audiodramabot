@@ -51,6 +51,9 @@ public class Fiction {
   @SerializedName("Discord")
   private boolean discord;
 
+  @SerializedName("Récompense")
+  private List<String> award;
+
   public String getId() {
     return id;
   }
@@ -169,6 +172,14 @@ public class Fiction {
 
   public void setDiscord(boolean discord) {
     this.discord = discord;
+  }
+
+  public List<String> getAward() {
+    return award;
+  }
+
+  public void setAward(List<String> award) {
+    this.award = award;
   }
 
 }
