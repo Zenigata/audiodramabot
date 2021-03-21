@@ -57,7 +57,7 @@ public class Bot extends ReactiveEventAdapter {
 
     client = DiscordClientBuilder.create(token).build().login().block();
     client.on(this).subscribe();
-    client.updatePresence(Presence.online(Activity.playing(PREFIX + "-help | " + PREFIX + "-random"))).subscribe();
+    client.updatePresence(Presence.online(Activity.playing(PREFIX + "help | " + PREFIX + "random"))).subscribe();
     client.onDisconnect().block();
   }
 
