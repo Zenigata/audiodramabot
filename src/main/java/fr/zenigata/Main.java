@@ -12,6 +12,7 @@ import fr.zenigata.command.PauseCommand;
 import fr.zenigata.command.PingCommand;
 import fr.zenigata.command.PlayCommand;
 import fr.zenigata.command.RandomFictionCommand;
+import fr.zenigata.command.RandomQuoteCommand;
 import fr.zenigata.command.StopCommand;
 
 public class Main {
@@ -24,7 +25,7 @@ public class Main {
 
         Bot bot = new Bot(args[0]);
         bot.addCommands(new PingCommand(), new RandomFictionCommand(), new FindFictionCommand(), new AboutCommand(),
-                new HelpCommand(), new PlayCommand(), new StopCommand(), new PauseCommand());
+                new HelpCommand(), new PlayCommand(), new StopCommand(), new PauseCommand(), new RandomQuoteCommand());
         try {
             bot.login("appR1sA7OvhBJbdgC");
         } catch (AirtableException e) {

@@ -24,6 +24,7 @@ public class HelpCommand implements Command {
     messages.add("**" + Bot.PREFIX + "play** *<nom>* *<S0X>* *<EXX>* joue en vocal un épisode.");
     messages.add("**" + Bot.PREFIX + "pause** suspend ou reprend l'épisode écouté.");
     messages.add("**" + Bot.PREFIX + "stop** arrête et expulse le bot du canal vocal.");
+    messages.add("**" + Bot.PREFIX + "quote** renvoie une citation aléatoire.");
     return event.getMessage().getChannel().flatMap(chan -> chan.createMessage(String.join("\n", messages)));
   }
 }

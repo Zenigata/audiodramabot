@@ -1,6 +1,7 @@
 package fr.zenigata.util;
 
 import java.util.List;
+import java.util.Random;
 import java.util.function.Consumer;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -33,7 +34,8 @@ public class SpecUtils {
                 + SpecUtils.displayStatus(fiction.getStatus()) + SpecUtils.displayAwards(fiction.getAward()),
             true)
         .addField(":link: Liens", displayLinks(fiction), true)
-        .addField(":musical_note: À écouter", SpecUtils.displayDiscord(fiction.isDiscord(), fiction.getName()), false)
+        .addField(":musical_note: À écouter",
+            SpecUtils.displayDiscord(fiction.isPlayableOnDiscord(), fiction.getName()), false)
         .addField("Une fiction de", SpecUtils.displayAuthors(fiction.getAuthors()), false)
         .setFooter("Fiction francophone", "https://flags.fmcdn.net/data/flags/mini/fr.png");
   }
@@ -106,6 +108,36 @@ public class SpecUtils {
       return DEFAULT_MESSAGE;
     }
     return "`" + String.join(" & ", authors) + "`";
+  }
+
+  public static Consumer<? super EmbedCreateSpec> displayQuote(Fiction fiction) {
+    return s -> s.setTitle(fiction.getName()).setDescription(displayQuoteDescription(fiction)).setColor(Color.DEEP_SEA)
+        .setThumbnail(fiction.getCovers() != null && fiction.getCovers().size() > 0
+            ? fiction.getCovers().get(0).getThumbnails().get("large").getUrl()
+            : DEFAULT_IMAGE)
+        .setFooter(Bot.PREFIX + "find " + fiction.getName(), "");
+  }
+
+  private static String displayQuoteDescription(Fiction fiction) {
+    String quote = fiction.getQuote();
+    if (quote == null || quote.isBlank() || !quote.contains(":")) {
+      return DEFAULT_MESSAGE;
+    }
+
+    String[] quotes = quote.split("\n\n");
+    if (quotes.length == 1) {
+      return formatQuote(quotes[0]);
+    } else {
+      Random random = new Random();
+      return formatQuote(quotes[random.nextInt(quotes.length)]);
+    }
+
+  }
+
+  private static String formatQuote(String quote) {
+    String author = quote.substring(0, quote.indexOf(":"));
+    String message = quote.substring(quote.indexOf(":") + 1);
+    return author + " : \n :speaking_head: `« " + message + " »`";
   }
 
   public static Publisher<?> displayError(Message message, String error) {

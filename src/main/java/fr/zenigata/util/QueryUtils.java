@@ -14,6 +14,7 @@ import fr.zenigata.CommandManager;
 import fr.zenigata.data.Fiction;
 import fr.zenigata.query.FindFictionByNameQuery;
 import fr.zenigata.query.FindFictionsByGenreQuery;
+import fr.zenigata.query.FindFictionsContainingQuotes;
 
 public class QueryUtils {
 
@@ -47,6 +48,13 @@ public class QueryUtils {
     Query query = new FindFictionByNameQuery(name);
     List<Fiction> found = CommandManager.getInstance().getBase().table(TABLE_FICTION, Fiction.class).select(query);
     return found;
+  }
+
+  public static List<Fiction> retrieveAllFictionsContainingQuotes(Base base)
+      throws HttpResponseException, AirtableException {
+    Query query = new FindFictionsContainingQuotes();
+    List<Fiction> ContainingQuotes = base.table(TABLE_FICTION, Fiction.class).select(query);
+    return ContainingQuotes;
   }
 
 }

@@ -49,10 +49,13 @@ public class Fiction {
   private String spotify;
 
   @SerializedName("Discord")
-  private boolean discord;
+  private boolean playableOnDiscord;
 
   @SerializedName("Récompense")
   private List<String> award;
+
+  @SerializedName("Citation")
+  private String quote;
 
   public String getId() {
     return id;
@@ -166,20 +169,28 @@ public class Fiction {
     this.spotify = spotify;
   }
 
-  public boolean isDiscord() {
-    return discord;
-  }
-
-  public void setDiscord(boolean discord) {
-    this.discord = discord;
-  }
-
   public List<String> getAward() {
     return award;
   }
 
   public void setAward(List<String> award) {
     this.award = award;
+  }
+
+  public boolean isPlayableOnDiscord() {
+    return playableOnDiscord;
+  }
+
+  public void setPlayableOnDiscord(boolean playableOnDiscord) {
+    this.playableOnDiscord = playableOnDiscord;
+  }
+
+  public String getQuote() {
+    return quote;
+  }
+
+  public void setQuote(String quote) {
+    this.quote = quote;
   }
 
 }
