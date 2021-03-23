@@ -71,7 +71,7 @@ public class SpecUtils {
     if (seconds == null) {
       return DEFAULT_MESSAGE;
     }
-    return String.format("%.0fh %.0fm", seconds / 3600, (seconds % 3600) / 60);
+    return String.format("%.0fh %.0fm", Math.floor(seconds / 3600), (seconds % 3600) / 60);
   }
 
   public static String displayGenres(List<String> genres) {
