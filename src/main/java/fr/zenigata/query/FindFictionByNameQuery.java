@@ -1,9 +1,11 @@
 package fr.zenigata.query;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.sybit.airtable.Query;
 import com.sybit.airtable.Sort;
+import com.sybit.airtable.Sort.Direction;
 
 import fr.zenigata.util.QueryUtils;
 
@@ -42,7 +44,7 @@ public class FindFictionByNameQuery implements Query {
 
   @Override
   public List<Sort> getSort() {
-    return null;
+    return Arrays.asList(new Sort("Longueur", Direction.asc));
   }
 
   @Override
