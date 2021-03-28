@@ -42,7 +42,11 @@ public class SpecUtils {
 
   private static String displayAwards(List<String> award) {
     if (CollectionUtils.isNotEmpty(award)) {
-      return "\n:medal: Lauréate [NSI :purple_circle:](https://nuitsansimage.fr/laureats \"Nuit Sans Image\")";
+      if ("Nuit Sans Image".equals(award.get(0))) {
+        return "\n:medal: Lauréate [NSI :purple_circle:](https://nuitsansimage.fr/laureats \"Nuit Sans Image\")";
+      } else {
+        return "\n:medal: Lauréate [Saga de l'été :trophy:](https://sagadelete.fr \"Saga de l'été\")";
+      }
     }
     return "";
   }
