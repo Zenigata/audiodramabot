@@ -29,8 +29,7 @@ public class FindFictionCommand implements Command {
     List<Fiction> found = QueryUtils.findFictionWithName(parameter);
 
     if (found.size() == 0) {
-      return SpecUtils.displayError(event.getMessage(), "Aucune fiction ne contient *" + parameter
-          + "* dans son nom. [Ajoutez-la](https://airtable.com/shrxmDTMyZz7BQMKG) vous-même !");
+      return SpecUtils.displayError(event.getMessage(), String.format(QueryUtils.FICTION_NOT_FOUND, parameter));
     }
     Fiction fiction = found.get(0);
 

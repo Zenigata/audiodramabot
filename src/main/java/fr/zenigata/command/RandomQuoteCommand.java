@@ -28,18 +28,31 @@ public class RandomQuoteCommand implements Command {
   @Override
   public Publisher<?> execute(MessageCreateEvent event, String parameter)
       throws HttpResponseException, AirtableException {
-    List<Fiction> fictions = QueryUtils.retrieveAllFictionsContainingQuotes(CommandManager.getInstance().getBase());
-    logger.debug("Quote list: {}", fictions.size());
+    Fiction fiction;
 
-    if (fictions.size() <= 0) {
-      return SpecUtils.displayError(event.getMessage(), "Aucune citation trouvée.");
+    if (parameter == null || parameter.isBlank()) {
+      List<Fiction> fictions = QueryUtils.retrieveAllFictionsContainingQuotes(CommandManager.getInstance().getBase());
+
+      logger.debug("Quote list: {}", fictions.size());
+
+      if (fictions.size() <= 0) {
+        return SpecUtils.displayError(event.getMessage(), "Aucune citation trouvée.");
+      }
+
+      Random random = new Random();
+      String fictionId = fictions.get(random.nextInt(fictions.size())).getId();
+      fiction = (Fiction) CommandManager.getInstance().getBase().table(QueryUtils.TABLE_FICTION, Fiction.class)
+          .find(fictionId);
+      logger.debug("Nom: {}", fiction.getName());
+    } else {
+      logger.debug("Quote with the given fiction: {}", parameter);
+      List<Fiction> found = QueryUtils.findFictionWithName(parameter);
+
+      if (found.size() == 0) {
+        return SpecUtils.displayError(event.getMessage(), String.format(QueryUtils.FICTION_NOT_FOUND, parameter));
+      }
+      fiction = found.get(0);
     }
-
-    Random random = new Random();
-    String fictionId = fictions.get(random.nextInt(fictions.size())).getId();
-    Fiction fiction = (Fiction) CommandManager.getInstance().getBase().table(QueryUtils.TABLE_FICTION, Fiction.class)
-        .find(fictionId);
-    logger.debug("Nom: {}", fiction.getName());
 
     return event.getMessage().getChannel().flatMap(c -> c.createEmbed(SpecUtils.displayQuote(fiction)));
   }

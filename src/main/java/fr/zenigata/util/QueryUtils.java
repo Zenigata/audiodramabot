@@ -17,6 +17,7 @@ import fr.zenigata.query.FindFictionsByGenreQuery;
 import fr.zenigata.query.FindFictionsContainingQuotes;
 
 public class QueryUtils {
+  public static final String FICTION_NOT_FOUND = "Aucune fiction ne contient *%s* dans son nom. [Ajoutez-la](https://airtable.com/shrxmDTMyZz7BQMKG) vous-même !";
 
   public static final String TABLE_FICTION = "Fiction";
   public static final String FIELD_RECORD_ID = "Record ID";
