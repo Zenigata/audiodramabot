@@ -18,7 +18,8 @@ import fr.zenigata.util.SpecUtils;
 
 public class RandomQuoteCommand implements Command {
 
-  private static final String NO_CITATION_FOUND = "Aucune citation trouvée.";
+  private static final String EMPTY_QUOTE = "Aucune citation trouvée.";
+  private static final String NO_QUOTE_FOUND = "Aucune citation trouvée pour la fiction *%s*.";
   private static final Logger logger = LoggerFactory.getLogger(RandomFictionCommand.class);
 
   @Override
@@ -37,7 +38,7 @@ public class RandomQuoteCommand implements Command {
       logger.debug("Quote list: {}", fictions.size());
 
       if (fictions.size() <= 0) {
-        return SpecUtils.displayError(event.getMessage(), NO_CITATION_FOUND);
+        return SpecUtils.displayError(event.getMessage(), EMPTY_QUOTE);
       }
 
       Random random = new Random();
@@ -54,7 +55,7 @@ public class RandomQuoteCommand implements Command {
       }
       fiction = found.get(0);
       if (fiction.getQuote() == null || fiction.getQuote().isBlank()) {
-        return SpecUtils.displayError(event.getMessage(), NO_CITATION_FOUND);
+        return SpecUtils.displayError(event.getMessage(), String.format(NO_QUOTE_FOUND, fiction.getName()));
       }
     }
 
