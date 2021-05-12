@@ -17,7 +17,7 @@ Commandes disponibles :
 * `!fic-play nom S01 E02` joue en vocal l'épisode 2 de la saison 1.
 * `!fic-pause` suspend ou reprend l'épisode écouté.
 * `!fic-stop` arrête et expulse le bot du canal vocal.
-* `!fic-quote` renvoie une citation aléatoire.
+* `!fic-quote nom` renvoie une citation aléatoire (nom optionnel ⚠️ aux accents).
 
 ## Install
 
