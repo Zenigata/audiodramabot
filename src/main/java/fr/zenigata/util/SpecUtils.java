@@ -37,7 +37,9 @@ public class SpecUtils {
         .addField(":musical_note: À écouter",
             SpecUtils.displayDiscord(fiction.isPlayableOnDiscord(), fiction.getName()), false)
         .addField("Une fiction de", SpecUtils.displayAuthors(fiction.getAuthors()), false)
-        .setFooter("Fiction francophone", "https://flags.fmcdn.net/data/flags/mini/fr.png");
+        .setFooter("Fiction " + (fiction.getLanguage().equalsIgnoreCase("Anglais") ? "anglophone" : "francophone"),
+            fiction.getLanguage().equalsIgnoreCase("Anglais") ? "https://flags.fmcdn.net/data/flags/mini/gb.png"
+                : "https://flags.fmcdn.net/data/flags/mini/fr.png");
   }
 
   private static String displayAwards(List<String> award) {
