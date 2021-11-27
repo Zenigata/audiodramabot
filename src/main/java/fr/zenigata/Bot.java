@@ -28,7 +28,7 @@ public class Bot extends ReactiveEventAdapter {
 
   private static final Logger logger = LoggerFactory.getLogger(Bot.class);
 
-  public static final String PREFIX = "!fic-";
+  public static final String PREFIX = "!";
 
   private String token;
   private Map<String, Command> commands;

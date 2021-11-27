@@ -14,6 +14,7 @@ import fr.zenigata.command.PlayCommand;
 import fr.zenigata.command.RandomFictionCommand;
 import fr.zenigata.command.RandomQuoteCommand;
 import fr.zenigata.command.StopCommand;
+import fr.zenigata.command.TriviaQuoteCommand;
 
 public class Main {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
@@ -25,7 +26,8 @@ public class Main {
 
         Bot bot = new Bot(args[0]);
         bot.addCommands(new PingCommand(), new RandomFictionCommand(), new FindFictionCommand(), new AboutCommand(),
-                new HelpCommand(), new PlayCommand(), new StopCommand(), new PauseCommand(), new RandomQuoteCommand());
+                new HelpCommand(), new PlayCommand(), new StopCommand(), new PauseCommand(), new RandomQuoteCommand(),
+                new TriviaQuoteCommand());
         try {
             bot.login("appR1sA7OvhBJbdgC");
         } catch (AirtableException e) {
