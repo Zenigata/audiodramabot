@@ -12,6 +12,7 @@ import discord4j.core.object.reaction.ReactionEmoji;
 import discord4j.core.spec.EmbedCreateSpec;
 import discord4j.rest.util.Color;
 import fr.zenigata.Bot;
+import fr.zenigata.data.Award;
 import fr.zenigata.data.Fiction;
 import reactor.core.publisher.Flux;
 
@@ -49,12 +50,13 @@ public class SpecUtils {
     return "Fiction " + (language.equalsIgnoreCase("Anglais") ? "anglophone" : "francophone");
   }
 
-  private static String displayAwards(List<String> award) {
-    if (CollectionUtils.isNotEmpty(award)) {
-      if ("Nuit Sans Image".equals(award.get(0))) {
-        return "\n:medal: Lauréate [NSI :purple_circle:](https://nuitsansimage.fr/laureats \"Nuit Sans Image\")";
-      } else {
-        return "\n:medal: Lauréate [Saga de l'été :trophy:](https://sagadelete.fr \"Saga de l'été\")";
+  private static String displayAwards(List<String> awards) {
+    if (CollectionUtils.isNotEmpty(awards)) {
+      // TODO Gérer les récompenses multiples
+      Award award = Award.get(awards.get(0));
+      if (award != null) {
+        return "\n:medal: Lauréate [" + award.getLabel() + " " + award.getEmoji() + "](" + award.getUrl() + " \""
+            + award.getLabel() + "\")";
       }
     }
     return "";
